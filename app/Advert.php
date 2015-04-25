@@ -6,8 +6,6 @@ use Pusher;
 class Advert extends Eloquent
 {
     public static function send($person, $device) {
-        $pusher = new Pusher($_ENV['PUSHER_KEY'], $_ENV['PUSHER_SECRET'], $_ENV['PUSHER_ID']);
-        
         //-- Look for an advert for this person
         //-- TODO: Need to get working :)
         //-- TODO: Mike and Curtis
@@ -19,13 +17,33 @@ class Advert extends Eloquent
     
         //-- If no person - lets decide on an ad anyway
         $data = [
-            'display' => $device,
-            'type' => $a->type,
-            'data' => $a->data
+            'display'  => $device,
+            'type'     => $a->type,
+            'data'     => $a->data,
+            'duration' => $a->duration
         ];
         
-        $pusher->trigger('adverts', 'display_advert', ($data));
-        return true;
+        self::push($data);
+        return $a->id;
     }
     
+    
+    public static function random($device) {
+        $a = Advert::where('product', 1)->get()->random(1);
+        $data = [
+            'display'  => $device,
+            'type'     => $a->type,
+            'data'     => $a->data,
+            'duration' => $a->duration
+        ];
+        
+        self::push($data);
+        return $a->id;
+    }
+    
+    
+    private static function push($data) {
+        $pusher = new Pusher($_ENV['PUSHER_KEY'], $_ENV['PUSHER_SECRET'], $_ENV['PUSHER_ID']);
+        $pusher->trigger('adverts', 'display_advert', $data);
+    }
 }

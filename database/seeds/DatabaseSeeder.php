@@ -23,13 +23,22 @@ class DatabaseSeeder extends Seeder {
         Advert::create([
             'product' => 1,
             'type'    => 'image',
-            'data'    => "http://www.bradwellbutchery.co.uk/images/sausage-sub.jpg"
+            'data'    => "http://www.bradwellbutchery.co.uk/images/sausage-sub.jpg",
+            'amount'  => '0'
+        ]);
+        
+        Advert::create([
+            'product' => 1,
+            'type'    => 'image',
+            'data'    => "http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/4/11/1397210130748/Spring-Lamb.-Image-shot-2-011.jpg",
+            'amount'  => '0'
         ]);
         
         Advert::create([
             'product' => 2,
             'type'    => 'image',
-            'data'    => "http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/4/11/1397210130748/Spring-Lamb.-Image-shot-2-011.jpg"
+            'data'    => "http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/4/11/1397210130748/Spring-Lamb.-Image-shot-2-011.jpg",
+            'amount'  => '0'
         ]);
         
         $this->command->info("Adverts table seeded");

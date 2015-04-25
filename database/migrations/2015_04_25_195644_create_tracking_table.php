@@ -17,6 +17,7 @@ class CreateTrackingTable extends Migration {
 	        $table->timestamps();
 	        $table->string('user_id');
 	        $table->string('device_id');
+	        $table->string('advert_id');
 	    });
 	}
 

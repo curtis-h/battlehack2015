@@ -7,7 +7,10 @@ class Tracking extends Eloquent
     protected $fillable = ['user_id', 'device_id'];
     
     public function device() {
-        return $this->hasOne('App\Device', 'devide_id');
+        return $this->belongsTo('App\Device');
     }
     
+    public function advert() {
+        return $this->belongsTo('App\Advert');
+    }
 }

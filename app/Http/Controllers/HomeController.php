@@ -218,17 +218,22 @@ class HomeController extends Controller {
             if(!empty($decode) && !empty($decode->face)) {
                 $top = $decode->face[0]->candidate[0];
                 $str = json_encode($top);
+                error_log($str);
                 
                 if($top->confidence > 65) {
-                    $name = $top->person_name;
-                    Advert::send($name, $device);
+                    $name   = $top->person_name;
+                    $advert = Advert::send($name, $device);
                     // save person detected at this location
                     Tracking::create([
                         'user_id'   => User::convert($name),
-                        'device_id' => $device
+                        'device_id' => $device,
+                        'advert_id' => $advert
                     ]);
         
                     return $str;
+                }
+                else {
+                    return "Confidence: {$top->confidence}";
                 }
             }
         }
@@ -258,6 +263,33 @@ class HomeController extends Controller {
         }
     
         return 0;
+    }
+    
+    
+    public function redirectnfc() {
+        //http://bh2015.hazan.me/?purchase=1&customer_id=123456&value=20
+        $track = Tracking::where('device_id', Request::input('device'))
+            ->orderBy('id', true)
+            ->first();
+        
+        if(!empty($track)) {
+            $params = [
+                'purchase'    => $track->advert_id,
+                //'customer_id' => $track->user_id,
+                'customer_id' => '123456',
+                'value'       => $track->advert->amount
+            ];
+            
+            $url = "http://bh2015.hazan.me/?".http_build_query($params);
+            return redirect($url);
+        }
+    }
+    
+    
+    public function getAdvert() {
+        $device = Request::input('beaconId', false);
+        Advert::random($device);
+        return 1;
     }
     
     

@@ -37,4 +37,5 @@ Route::post('upload/{who}', 'HomeController@upload');
 Route::post('uploadtest', 'HomeController@detect');
 Route::any('detect64', 'HomeController@detect64');
 
-
+Route::get('nfc', 'HomeController@redirectnfc');
+Route::all('advert', 'HomeController@getAdvert');
