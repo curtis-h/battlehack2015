@@ -43,7 +43,7 @@
 				<div class="title">Laravel 5</div>
 				<div class="quote">{{ Inspiring::quote() }}</div>
 				<div>
-				    <form action="/uploadtest" method="post" enctype="multipart/form-data">
+				    <form action="/detect" method="post" enctype="multipart/form-data">
 				        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         Select image to upload:
                         <input type="file" name="file" id="fileToUpload">
