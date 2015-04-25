@@ -30,13 +30,28 @@ class HomeController extends Controller {
         $params = [
             'attribute' => 'gender,age,race,smiling,glass,pose',
             //'url' => 'https://pbs.twimg.com/profile_images/482083515128107008/aeaaf-VI.jpeg'
-            'img' => public_path("uploads/curtis1.jpg")
+            'img' => public_path("uploads/mike/mike553baf26da818.jpg")
         ];
         
         $response = $face->execute('/detection/detect', $params);
         dd($response);
     }
     
+    
+    /**
+     * show all images uploaded for a person
+     * @param person $who
+     */
+    public function person($who) {
+        $files = File::files(public_path("uploads/{$who}"));
+        return view("person")->with('person', $who)->with('images', $files);
+    }
+    
+    
+    /**
+     * show the upload page
+     * @param person $who
+     */
     public function viewUpload($who) {
         return view("/upload")->with("who", $who);
     }
@@ -56,6 +71,10 @@ class HomeController extends Controller {
         return redirect("/");
     }
     
+    /**
+     * test uploader for syncing with Mikes stuff
+     * @return number
+     */
     public function uploadTest() {
         $who = 'mike';
         if(Request::hasFile('file')) {

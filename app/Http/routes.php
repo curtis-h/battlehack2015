@@ -17,7 +17,8 @@ Route::get('home', 'HomeController@index');
 
 Route::get('test', 'HomeController@test');
 
+Route::get('person/{who}', 'HomeController@person');
+
 Route::get('upload/{who}', 'HomeController@viewUpload');
 Route::post('upload/{who}', 'HomeController@upload');
-
 Route::post('uploadtest', 'HomeController@uploadTest');
