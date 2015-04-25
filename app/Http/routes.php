@@ -15,7 +15,9 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+Route::get('test', 'HomeController@test');
+
+Route::get('upload/{who}', 'HomeController@viewUpload');
+Route::post('upload/{who}', 'HomeController@upload');
+
+Route::post('uploadtest', 'HomeController@uploadTest');

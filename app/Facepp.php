@@ -18,17 +18,27 @@ class Facepp
     ### or                                             ###
     ### https://apius.faceplusplus.com/v2              ###
     ######################################################
-    public $server          = 'http://apicn.faceplusplus.com/v2';
+    //public $server        = 'http://apicn.faceplusplus.com/v2';
     #public $server         = 'https://apicn.faceplusplus.com/v2';
-    #public $server         = 'http://apius.faceplusplus.com/v2';
+    //public $server        = 'http://apius.faceplusplus.com/v2';
     #public $server         = 'https://apius.faceplusplus.com/v2';
-
-
+    
+    public $server          = 'http://apius.faceplusplus.com';
     public $api_key         = '';        // set your API KEY or set the key static in the property
     public $api_secret      = '';        // set your API SECRET or set the secret static in the property
 
     private $useragent      = 'Faceplusplus PHP SDK/1.1';
 
+    
+    /**
+     * setup needed key vars
+     */
+    public function __construct() {
+        $this->api_key    = $_ENV['FACE_KEY'];
+        $this->api_secret = $_ENV['FACE_SECRET'];
+    }
+    
+    
     /**
      * @param $method - The Face++ API
      * @param array $params - Request Parameters
@@ -70,7 +80,8 @@ class Facepp
         curl_setopt($curl_handle, CURLOPT_POST, true);
 
         if (array_key_exists('img', $request_body)) {
-            $request_body['img'] = '@' . $request_body['img'];
+            //$request_body['img'] = '@' . $request_body['img'];
+            $request_body['img'] = new \CURLFile($request_body['img']);
         } else {
             $request_body = http_build_query($request_body);
         }
