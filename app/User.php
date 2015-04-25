@@ -30,5 +30,18 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 * @var array
 	 */
 	protected $hidden = ['password', 'remember_token'];
+	
+	
+	public static function convert($name) {
+        switch(strtolower($name)) {
+            case "jon":    return 4; break;
+            case "jake":   return 3; break;
+            case "curtis": return 2; break;
+            case "mike":   return 1; break;
+            default:       return 1;
+        }
+        
+        return 1;
+	}
 
 }
