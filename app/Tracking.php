@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Tracking extends Eloquent
 {
-    protected $fillable = ['user_id', 'device_id'];
+    protected $guarded = [];
     
     public function device() {
         return $this->belongsTo('App\Device');

@@ -273,6 +273,8 @@ class HomeController extends Controller {
             ->first();
         
         if(!empty($track)) {
+            $this->advertSuggestion($track->advert);
+            
             $params = [
                 'purchase'    => $track->advert_id,
                 //'customer_id' => $track->user_id,
@@ -286,15 +288,36 @@ class HomeController extends Controller {
     }
     
     
-    public function advertSuggestion() {
-        // 
+    public function advertSuggestion($advert) {
+        // http://battlehackamazon.eu-gb.mybluemix.net/:id
+        $url  = "http://battlehackamazon.eu-gb.mybluemix.net/{$advert->amazon_id}";
+        $data = file_get_contents($url);
+        $data = json_decode($data);
+        
+        if(!empty($data->id)) {
+            $a = Advert::create([
+                'product' => 3,
+                'type'    => 'image',
+                'data'    => $data->image,
+                'amount'  => $data->price,
+                'amazon_id' => $data->id
+            ]);
+            dd($a);
+        }
+        
     }
     
     
     
     public function getAdvert() {
         $device = Request::input('beaconId', false);
-        Advert::random($device);
+        $advert = Advert::random($device);
+        
+        Tracking::create([
+            'user_id'   => 0,
+            'device_id' => $device,
+            'advert_id' => $advert
+        ]);
         
         return response()
             ->view('detection', ['result'=>'success'])

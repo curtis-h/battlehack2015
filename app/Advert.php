@@ -5,16 +5,16 @@ use Pusher;
 
 class Advert extends Eloquent
 {
+    protected $guarded = [];
+    
+    
     public static function send($person, $device) {
         //-- Look for an advert for this person
         //-- TODO: Need to get working :)
-        //-- TODO: Mike and Curtis
-        if ($person == "mike") {
-            $a = Advert::where('product', 1)->first();
-        } else {
-            $a = Advert::where('product', 2)->first();
-        }
-    
+        $a = Advert::where('product', 2)
+            ->get()
+            ->random(1);
+        
         //-- If no person - lets decide on an ad anyway
         $data = [
             'display'  => $device,
