@@ -286,6 +286,12 @@ class HomeController extends Controller {
     }
     
     
+    public function advertSuggestion() {
+        // 
+    }
+    
+    
+    
     public function getAdvert() {
         $device = Request::input('beaconId', false);
         Advert::random($device);

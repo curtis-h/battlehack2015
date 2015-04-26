@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Advert;
+use App\Device;
 
 class DatabaseSeeder extends Seeder {
 
@@ -15,6 +16,7 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 		$this->adverts();
+		$this->devices();
 	}
 
 	
@@ -63,7 +65,37 @@ class DatabaseSeeder extends Seeder {
             'amount'  => '0'
         ]);
         
-        
+        Advert::create([
+            'product' => 2,
+            'type'    => 'image',
+            'data'    => "http://battlehack.jakelprice.com/images/firetv_B00GDQ0RMG.png",
+            'amount'  => '0',
+            'amazon_id' => 'B00GDQ0RMG'
+        ]);
         $this->command->info("Adverts table seeded");
+    }
+    
+    function devices() {
+        DB::table('devices')->delete();
+        
+        Device::create([
+            'lat' => '51.5083812',
+            'lng' => '-0.0596139'
+        ]);
+
+        Device::create([
+            'lat' => '51.5096031',
+            'lng' => '-0.0601396'
+        ]);
+        
+        Device::create([
+            'lat' => '51.5094963',
+            'lng' => '-0.0624248'
+        ]);
+        
+        Device::create([
+            'lat' => '51.5094963',
+            'lng' => '-0.0640556'
+        ]);
     }
 }

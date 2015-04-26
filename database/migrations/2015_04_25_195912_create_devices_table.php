@@ -14,6 +14,7 @@ class CreateDevicesTable extends Migration {
 	{
 		Schema::create('devices', function(Blueprint $table) {
             $table->increments('id');
+            $table->timestamps();
             $table->string('lat'); 		//-- Video type
             $table->string('lng');			//-- Datas
 		});
