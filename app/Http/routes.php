@@ -39,3 +39,16 @@ Route::any('detect64', 'HomeController@detect64');
 
 Route::get('nfc', 'HomeController@redirectnfc');
 Route::any('advert', 'HomeController@getAdvert');
+
+Route::get('search', function() {
+    return view('search');
+});
+Route::post('search', function() {
+    $name   = Request::input('name', '');
+    $bits   = explode(' ', $name);
+    $name   = $bits[0];
+    $id     = App\User::convert($name);
+    $tracks = App\Tracking::where('user_id', $id)->with('device')->orderBy('id', true)->first();
+    return response()->json($tracks);
+});
+

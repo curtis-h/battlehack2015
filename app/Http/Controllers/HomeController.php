@@ -186,13 +186,15 @@ class HomeController extends Controller {
      * cross origin policy as posting with ajax from browser
      */
     public function detect64() {
-        $name              = uniqid("detect");
-        $file              = public_path("uploads/detect/{$name}.jpg");
+        $user = 'detect';
+        $name              = uniqid($user);
+        $file              = public_path("uploads/{$user}/{$name}.jpg");
         $data              = Request::input('imgBase64');
         list($type, $data) = explode(';', $data);
         list(, $data)      = explode(',', $data);
         $data              = base64_decode($data);
         file_put_contents($file, $data);
+        
         
         $result = $this->runFaceDetection($name);
         
