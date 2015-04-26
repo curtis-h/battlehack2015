@@ -289,7 +289,10 @@ class HomeController extends Controller {
     public function getAdvert() {
         $device = Request::input('beaconId', false);
         Advert::random($device);
-        return 1;
+        
+        return response()
+            ->view('detection', ['result'=>'success'])
+            ->header('Access-Control-Allow-Origin', '*');
     }
     
     

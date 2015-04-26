@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder {
 	
     function adverts() {
         DB::table('adverts')->delete();
+        
         Advert::create([
             'product' => 1,
             'type'    => 'image',
@@ -35,11 +36,33 @@ class DatabaseSeeder extends Seeder {
         ]);
         
         Advert::create([
-            'product' => 2,
+            'product' => 1,
             'type'    => 'image',
-            'data'    => "http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/4/11/1397210130748/Spring-Lamb.-Image-shot-2-011.jpg",
+            'data'    => "http://battlehack.jakelprice.com/images/flowers.png",
             'amount'  => '0'
         ]);
+        
+        Advert::create([
+            'product' => 1,
+            'type'    => 'image',
+            'data'    => "http://battlehack.jakelprice.com/images/iphone.png",
+            'amount'  => '0'
+        ]);
+        
+        Advert::create([
+            'product' => 1,
+            'type'    => 'image',
+            'data'    => "http://battlehack.jakelprice.com/images/mac.png",
+            'amount'  => '0'
+        ]);
+        
+        Advert::create([
+            'product' => 1,
+            'type'    => 'image',
+            'data'    => "http://battlehack.jakelprice.com/images/tesla_ad1.png",
+            'amount'  => '0'
+        ]);
+        
         
         $this->command->info("Adverts table seeded");
     }

@@ -23,7 +23,7 @@ class Advert extends Eloquent
             'duration' => $a->duration
         ];
         
-        self::push($data);
+        self::pushtopusher($data);
         return $a->id;
     }
     
@@ -37,12 +37,12 @@ class Advert extends Eloquent
             'duration' => $a->duration
         ];
         
-        self::push($data);
+        self::pushtopusher($data);
         return $a->id;
     }
     
     
-    private static function push($data) {
+    private static function pushtopusher($data) {
         $pusher = new Pusher($_ENV['PUSHER_KEY'], $_ENV['PUSHER_SECRET'], $_ENV['PUSHER_ID']);
         $pusher->trigger('adverts', 'display_advert', $data);
     }
